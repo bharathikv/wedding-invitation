@@ -1,0 +1,657 @@
+:root {
+  --maroon: #6e0f1c;
+  --maroon-d: #3b070f;
+  --gold: #c9a24b;
+  --gold-l: #f3dc92;
+  --cream: #fcf4e3;
+  --cream-d: #f1e1bd;
+  --ink: #3a1a1a;
+  --kum: #c1122f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Cormorant Garamond", "Noto Serif Tamil", serif;
+  font-size: 19px;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-lang="ta"] {
+  font-family: "Noto Serif Tamil", "Cormorant Garamond", serif;
+  font-size: 16px;
+  line-height: 1.9;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- petals ---------- */
+.petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+.petal {
+  position: absolute;
+  top: -40px;
+  border-radius: 150% 0 150% 0;
+  opacity: 0.85;
+  animation: fall linear infinite;
+}
+.petal.marigold {
+  background: radial-gradient(circle at 30% 30%, #ffd36a, #f08a00);
+}
+.petal.rose {
+  background: radial-gradient(circle at 30% 30%, #ff9bb0, #c1122f);
+}
+@keyframes fall {
+  0% {
+    transform: translate3d(0, -40px, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(var(--drift), 110vh, 0) rotate(540deg);
+  }
+}
+
+/* ---------- lang toggle ---------- */
+.lang-toggle {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: rgba(59, 7, 15, 0.8);
+  color: var(--gold-l);
+  border: 1px solid var(--gold);
+  font: inherit;
+  font-size: 14px;
+  backdrop-filter: blur(6px);
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 28px 18px;
+  overflow: hidden;
+  color: var(--gold-l);
+  background: radial-gradient(
+    circle at 50% 35%,
+    #8f1526 0%,
+    var(--maroon) 40%,
+    var(--maroon-d) 100%
+  );
+}
+.hero-mandala {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--gold);
+  opacity: 0.22;
+  width: min(140vw, 900px);
+  height: auto;
+  transform: translate(-50%, -50%);
+  animation: spin 160s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+.hero-frame {
+  position: relative;
+  z-index: 2;
+  width: min(92vw, 640px);
+  padding: 38px 20px 30px;
+  border: 1px solid var(--gold);
+  border-radius: 220px 220px 18px 18px;
+  outline: 1px solid rgba(201, 162, 75, 0.45);
+  outline-offset: 8px;
+  background: rgba(59, 7, 15, 0.55);
+  backdrop-filter: blur(3px);
+}
+.ganesh {
+  font-family: "Noto Serif Devanagari", "Noto Serif Tamil", serif;
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+.god {
+  margin-top: 6px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 17px;
+}
+.hero-sub {
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 15px;
+  margin: 6px 0 10px;
+}
+.hero-names {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-size: clamp(46px, 13vw, 84px);
+  line-height: 1.15;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+body[data-lang="ta"] .hero-names {
+  font-family: "Noto Serif Tamil", serif;
+  font-weight: 700;
+  font-size: clamp(34px, 10vw, 64px);
+  line-height: 1.4;
+}
+.amp {
+  font-family: "Cinzel Decorative", serif;
+  font-style: normal;
+  color: var(--gold);
+  font-size: 0.45em;
+  margin: -2px 0;
+}
+.hero-date {
+  margin-top: 14px;
+  font-size: 22px;
+  font-weight: 700;
+}
+.hero-tamil {
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+.hero-place {
+  opacity: 0.9;
+  margin-bottom: 18px;
+}
+.scroll {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--gold);
+}
+.scroll i {
+  font-style: normal;
+  font-size: 24px;
+  animation: bob 1.6s ease-in-out infinite;
+}
+@keyframes bob {
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+/* ---------- countdown ---------- */
+.cd-title {
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  color: var(--gold);
+}
+.cd-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.cd-box {
+  min-width: 64px;
+  padding: 8px 6px;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.28);
+  display: flex;
+  flex-direction: column;
+}
+.cd-box b {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 26px;
+  color: #fff;
+  line-height: 1.2;
+}
+.cd-box span {
+  font-size: 12px;
+  color: var(--gold);
+}
+.cd-done {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+/* ---------- sections ---------- */
+.section {
+  position: relative;
+  padding: 72px 18px;
+  text-align: center;
+}
+.section.paper {
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(201, 162, 75, 0.14),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 90%,
+      rgba(193, 18, 47, 0.07),
+      transparent 45%
+    ),
+    var(--cream);
+}
+.section.maroon {
+  background: radial-gradient(
+    circle at 50% 0%,
+    #8a1424 0%,
+    var(--maroon) 45%,
+    var(--maroon-d) 100%
+  );
+  color: var(--gold-l);
+}
+.section-title {
+  font-family: "Cinzel Decorative", "Noto Serif Tamil", serif;
+  font-size: clamp(24px, 6vw, 36px);
+  color: var(--gold-l);
+  letter-spacing: 1px;
+}
+body[data-lang="ta"] .section-title {
+  font-family: "Noto Serif Tamil", serif;
+  font-weight: 700;
+}
+.section-title.dark {
+  color: var(--maroon);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--gold);
+  margin: 12px auto 22px;
+  width: min(320px, 80%);
+}
+.divider .line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* invitation */
+.card-frame {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 38px 24px;
+  border: 2px solid var(--gold);
+  border-radius: 6px;
+  outline: 1px solid var(--gold);
+  outline-offset: 7px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.eyebrow {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--maroon);
+}
+.lead {
+  margin: 14px 0;
+}
+
+/* couple */
+.couple-grid {
+  max-width: 880px;
+  margin: 28px auto 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 18px;
+  align-items: center;
+}
+.avatar {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 0 6px rgba(201, 162, 75, 0.25);
+  background: radial-gradient(circle, #8f1526, var(--maroon-d));
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.avatar span {
+  font-family: "Great Vibes", cursive;
+  font-size: 78px;
+  color: var(--gold-l);
+}
+.person-label {
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+.person h3 {
+  font-size: 24px;
+  color: #fff;
+  margin: 4px 0;
+}
+.person-role {
+  opacity: 0.85;
+}
+.person-parents {
+  margin-top: 6px;
+  font-style: italic;
+  opacity: 0.9;
+}
+.heart {
+  font-size: 44px;
+  color: var(--gold);
+}
+
+/* footer credit */
+.credit {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 28px;
+  padding: 14px 26px;
+  border-top: 1px solid rgba(201, 162, 75, 0.5);
+  border-bottom: 1px solid rgba(201, 162, 75, 0.5);
+}
+.credit-label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.85;
+}
+.credit-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+a.credit-name:hover {
+  color: var(--gold-l);
+  text-decoration: underline;
+}
+.credit-role {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* events */
+.events-grid {
+  max-width: 880px;
+  margin: 24px auto 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.event {
+  padding: 30px 20px;
+  background: #fff;
+  border: 1px solid var(--gold);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(110, 15, 28, 0.12);
+  position: relative;
+}
+.event::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px dashed rgba(201, 162, 75, 0.7);
+  border-radius: 13px;
+  pointer-events: none;
+}
+.event-icon {
+  font-size: 40px;
+}
+.event h3 {
+  color: var(--maroon);
+  margin: 8px 0 6px;
+  font-size: 22px;
+}
+.event-date {
+  font-weight: 700;
+}
+.event-tamil {
+  color: var(--kum);
+  letter-spacing: 1px;
+}
+.event-time {
+  margin-top: 8px;
+  font-weight: 600;
+}
+.event-note {
+  margin-top: 6px;
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+/* venue */
+.venue-text h3 {
+  color: #fff;
+  font-size: 26px;
+}
+.map-wrap {
+  max-width: 760px;
+  margin: 26px auto 22px;
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  overflow: hidden;
+  height: 320px;
+}
+.map-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* hosts */
+.hosts {
+  list-style: none;
+  max-width: 520px;
+  margin: 0 auto 22px;
+}
+.hosts li {
+  padding: 8px 0;
+  border-bottom: 1px dotted var(--gold);
+  font-weight: 600;
+  color: var(--maroon);
+}
+.call-label {
+  color: var(--kum);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.call-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* rsvp */
+.rsvp-sub {
+  margin-bottom: 18px;
+  opacity: 0.9;
+}
+.rsvp {
+  max-width: 520px;
+  margin: 0 auto 18px;
+  text-align: left;
+  display: grid;
+  gap: 14px;
+}
+.rsvp label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--gold-l);
+}
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 12px;
+}
+.rsvp input,
+.rsvp select,
+.rsvp textarea {
+  font: inherit;
+  font-size: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--gold);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--ink);
+  width: 100%;
+}
+
+/* buttons */
+.btn {
+  display: inline-block;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 1.5px solid var(--gold);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.btn.gold {
+  background: linear-gradient(135deg, #f3dc92, #c9a24b);
+  color: var(--maroon-d);
+}
+.btn.outline {
+  background: transparent;
+  color: var(--maroon);
+}
+.btn.outline.light {
+  color: var(--gold-l);
+}
+
+/* footer */
+.footer {
+  position: relative;
+  text-align: center;
+  padding: 70px 18px 40px;
+  background: var(--maroon-d);
+  color: var(--gold-l);
+  overflow: hidden;
+}
+.footer-mandala {
+  color: var(--gold);
+  opacity: 0.35;
+  margin: 0 auto 10px;
+  height: auto;
+  max-width: 60vw;
+  animation: spin2 90s linear infinite;
+}
+@keyframes spin2 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.quote {
+  max-width: 520px;
+  margin: 0 auto 20px;
+  font-style: italic;
+}
+.footer-names {
+  font-family: "Great Vibes", cursive;
+  font-size: 46px;
+  color: #fff;
+}
+body[data-lang="ta"] .footer-names {
+  font-family: "Noto Serif Tamil", serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+.footer-line {
+  color: var(--gold);
+}
+.made {
+  margin-top: 26px;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+/* mobile */
+@media (max-width: 640px) {
+  .couple-grid {
+    grid-template-columns: 1fr;
+  }
+  .heart {
+    transform: rotate(90deg);
+  }
+  .hero-frame {
+    border-radius: 150px 150px 14px 14px;
+    padding-top: 44px;
+  }
+  .row2 {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .petals {
+    display: none;
+  }
+  .hero-mandala,
+  .footer-mandala,
+  .scroll i {
+    animation: none;
+  }
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,964 @@
+/* =====================================================================
+   effects.css — temple theme, deities, touch effects, language transition
+   (loaded after styles.css, so it can override it)
+   ===================================================================== */
+
+:root {
+  --saffron: #f6b84a;
+  --saffron-l: #ffe3a3;
+  --toran: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='66' viewBox='0 0 90 66'%3E%3Cpath d='M0 4 Q45 22 90 4' fill='none' stroke='%23c9a24b' stroke-width='2'/%3E%3Ccircle cx='12' cy='9' r='4' fill='%23ff9f00'/%3E%3Ccircle cx='26' cy='14' r='4' fill='%23e53953'/%3E%3Ccircle cx='64' cy='14' r='4' fill='%23e53953'/%3E%3Ccircle cx='78' cy='9' r='4' fill='%23ff9f00'/%3E%3Cpath d='M45 14 C 36 26,36 42,45 56 C 54 42,54 26,45 14Z' fill='%232f8a3a' stroke='%23145a22'/%3E%3Cpath d='M45 16 V54' stroke='%23145a22' stroke-width='.8'/%3E%3Ccircle cx='45' cy='60' r='4' fill='%23ffb300'/%3E%3C/svg%3E");
+  --lotus-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23c9a24b' stroke-width='.8' opacity='.55'%3E%3Cpath d='M36 14 C 42 24,42 32,36 40 C 30 32,30 24,36 14Z'/%3E%3Cpath d='M36 14 C 42 24,42 32,36 40 C 30 32,30 24,36 14Z' transform='rotate(90 36 36)'/%3E%3Cpath d='M36 14 C 42 24,42 32,36 40 C 30 32,30 24,36 14Z' transform='rotate(180 36 36)'/%3E%3Cpath d='M36 14 C 42 24,42 32,36 40 C 30 32,30 24,36 14Z' transform='rotate(270 36 36)'/%3E%3Ccircle cx='36' cy='36' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- touch canvas ---------- */
+.fx-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+}
+
+/* ---------- scroll progress ---------- */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 60;
+  background: linear-gradient(90deg, #ffd36a, #ff8f00, #c1122f);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+  box-shadow: 0 0 10px rgba(255, 179, 0, 0.8);
+}
+
+/* ---------- language toggle (sliding pill) ---------- */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  gap: 0;
+  top: 14px;
+  right: 14px;
+  z-index: 70;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.lang-toggle .opt {
+  position: relative;
+  z-index: 1;
+  min-width: 56px;
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.3;
+  transition: color 0.4s;
+  color: var(--gold-l);
+}
+.lang-toggle .thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fff1b0, #c9a24b);
+  transition: transform 0.5s cubic-bezier(0.6, -0.3, 0.3, 1.3);
+}
+.lang-toggle.ta .opt:nth-child(2),
+.lang-toggle.en .opt:nth-child(3) {
+  color: var(--maroon-d);
+}
+.lang-toggle.en .thumb {
+  transform: translateX(100%);
+}
+
+/* ---------- language veil ---------- */
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%, #8f1526 0%, #3b070f 75%),
+    var(--maroon-d);
+  color: var(--gold);
+  overflow: hidden;
+  clip-path: circle(0 at var(--x) var(--y));
+}
+.veil.in {
+  animation: veilIn 0.62s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+.veil.out {
+  clip-path: circle(160vmax at var(--x) var(--y));
+  animation: veilOut 0.9s ease forwards;
+}
+@keyframes veilIn {
+  to {
+    clip-path: circle(160vmax at var(--x) var(--y));
+  }
+}
+@keyframes veilOut {
+  to {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+}
+.veil-mandala {
+  position: absolute;
+  opacity: 0.35;
+  width: min(120vmin, 560px);
+  height: auto;
+  animation: veilSpin 2.4s ease-in-out both;
+}
+@keyframes veilSpin {
+  from {
+    transform: rotate(-60deg) scale(0.6);
+  }
+  to {
+    transform: rotate(120deg) scale(1.1);
+  }
+}
+.veil-om {
+  position: absolute;
+  font-family: "Noto Serif Devanagari", serif;
+  font-size: clamp(120px, 34vmin, 260px);
+  color: var(--gold);
+  opacity: 0.22;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.veil-word {
+  position: relative;
+  font-family: "Noto Serif Tamil", "Cinzel Decorative", serif;
+  font-weight: 700;
+  font-size: clamp(44px, 14vw, 96px);
+  color: #fff;
+  text-shadow: 0 0 30px rgba(255, 211, 106, 0.7);
+  animation: wordIn 0.9s 0.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes wordIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.8);
+    filter: blur(10px);
+    letter-spacing: 0.3em;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    letter-spacing: 0.02em;
+  }
+}
+@keyframes pulse {
+  50% {
+    transform: scale(1.12);
+    opacity: 0.32;
+  }
+}
+
+/* every line of text re-materialises after a language swap */
+.swapping :is(h2, h3, p, li, label, .btn, .cd-box span, .hero-sub) {
+  animation: morph 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.swapping .hero-names span:not(.amp) {
+  display: inline-block;
+  animation: flipIn 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.swapping .hero-names span:nth-of-type(2) {
+  animation-delay: 0.15s;
+}
+.swapping .mantra,
+.swapping .god-card h3 {
+  animation-duration: 1.2s;
+}
+@keyframes morph {
+  0% {
+    opacity: 0;
+    filter: blur(9px);
+    transform: translateY(16px) scale(0.97);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+@keyframes flipIn {
+  0% {
+    opacity: 0;
+    transform: perspective(500px) rotateX(-90deg) translateY(20px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ---------- temple door splash ---------- */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  perspective: 1500px;
+}
+.door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.3%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 211, 106, 0.2), transparent 70%),
+    linear-gradient(180deg, #7a0f1e, #3b070f 60%, #2a0509);
+  transition: transform 1.7s cubic-bezier(0.7, 0, 0.2, 1);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.55);
+}
+.door::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle, #f3dc92 0 2.5px, transparent 3.5px) 0 0 / 38px 38px,
+    var(--lotus-tile);
+  opacity: 0.85;
+}
+.door::after {
+  content: "";
+  position: absolute;
+  inset: 30px;
+  border: 1px dashed rgba(243, 220, 146, 0.6);
+  border-radius: 4px;
+}
+.door.l {
+  left: 0;
+  transform-origin: left center;
+  border-right: 3px solid var(--gold);
+}
+.door.r {
+  right: 0;
+  transform-origin: right center;
+  border-left: 3px solid var(--gold);
+}
+.splash.open .door.l {
+  transform: rotateY(-108deg);
+}
+.splash.open .door.r {
+  transform: rotateY(108deg);
+}
+.splash.open {
+  pointer-events: none;
+  animation: splashFade 0.7s 1.5s ease forwards;
+}
+@keyframes splashFade {
+  to {
+    opacity: 0;
+  }
+}
+.splash-core {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: var(--gold-l);
+  padding: 22px 26px 26px;
+  width: min(92vw, 420px);
+  border-radius: 200px 200px 22px 22px;
+  background: radial-gradient(circle at 50% 18%, #7b1020, #3b070f 78%);
+  border: 2px solid var(--gold);
+  outline: 1px solid rgba(243, 220, 146, 0.5);
+  outline-offset: 7px;
+  box-shadow:
+    0 0 60px rgba(255, 179, 0, 0.35),
+    0 20px 60px rgba(0, 0, 0, 0.6);
+  transition:
+    opacity 0.7s,
+    transform 1.1s;
+}
+.splash.open .splash-core {
+  opacity: 0;
+  transform: scale(1.35);
+}
+.splash-arch {
+  position: relative;
+  width: min(46vw, 180px);
+  margin: 10px auto 2px;
+}
+.splash-arch .god-svg {
+  position: relative;
+  width: 100%;
+  height: auto;
+  animation: floaty 4s ease-in-out infinite;
+}
+.splash-glow {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 211, 106, 0.55), transparent 65%);
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes floaty {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.splash-om {
+  font-family: "Noto Serif Devanagari", "Noto Serif Tamil", serif;
+  font-size: 15px;
+}
+.splash-title {
+  font-family: "Noto Serif Tamil", serif;
+  font-size: clamp(24px, 7vw, 32px);
+  color: #fff;
+  margin: 6px 0 0;
+  line-height: 1.5;
+}
+.splash-title-en {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: var(--gold);
+}
+.splash-names {
+  font-family: "Noto Serif Tamil", serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 8px 0 14px;
+  color: var(--gold-l);
+}
+.splash-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.splash-btn {
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  font-size: 18px;
+  min-width: 118px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--gold);
+  background: linear-gradient(135deg, #fff1b0, #c9a24b);
+  color: var(--maroon-d);
+  box-shadow: 0 0 0 0 rgba(255, 211, 106, 0.7);
+  animation: ring 2.2s infinite;
+}
+.splash-btn:nth-child(2) {
+  background: transparent;
+  color: var(--gold-l);
+  animation-delay: 1.1s;
+}
+@keyframes ring {
+  70% {
+    box-shadow: 0 0 0 14px rgba(255, 211, 106, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 211, 106, 0);
+  }
+}
+.splash-hint {
+  margin-top: 12px;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+/* ---------- hero upgrades ---------- */
+.toran {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 66px;
+  background: var(--toran) repeat-x 0 0 / 90px 66px;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+  animation: sway 6s ease-in-out infinite;
+  transform-origin: top center;
+}
+@keyframes sway {
+  50% {
+    background-position: 6px 0;
+  }
+}
+.hero-bell {
+  position: absolute;
+  top: 40px;
+  width: 38px;
+  height: auto;
+  z-index: 4;
+  transform-origin: 50% 0;
+  animation: swing 3.4s ease-in-out infinite;
+}
+.hero-bell.l {
+  left: 7%;
+}
+.hero-bell.r {
+  right: 7%;
+  animation-delay: -1.7s;
+}
+@keyframes swing {
+  0%,
+  100% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+}
+.stars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.stars i {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff3b8;
+  box-shadow: 0 0 6px 1px rgba(255, 224, 138, 0.8);
+  animation: twinkle ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+.hero {
+  padding-top: 86px;
+  padding-bottom: clamp(90px, 18vw, 170px);
+}
+.hero-skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: clamp(90px, 17vw, 170px);
+  color: var(--cream);
+  z-index: 3;
+  pointer-events: none;
+}
+.hero-frame {
+  animation: frameIn 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+}
+@keyframes frameIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+}
+.hero-ganesha {
+  position: relative;
+  width: 104px;
+  margin: -6px auto 4px;
+  filter: drop-shadow(0 0 18px rgba(255, 211, 106, 0.55));
+}
+.hero-ganesha .god-svg,
+.hero-ganesha .god-photo {
+  width: 100%;
+  height: auto;
+  animation: floaty 5s ease-in-out infinite;
+}
+.hero-names span:not(.amp) {
+  background: linear-gradient(100deg, #fff 25%, #ffe9a0 45%, #fff 65%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s linear infinite;
+  text-shadow: none;
+}
+.hero-names {
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.5));
+}
+@keyframes shine {
+  to {
+    background-position: -220% 0;
+  }
+}
+.hero .corner {
+  color: var(--gold);
+}
+
+/* ---------- corner flourishes ---------- */
+.corner {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  color: var(--gold);
+  pointer-events: none;
+  opacity: 0.9;
+}
+.corner.tl {
+  top: 6px;
+  left: 6px;
+}
+.corner.tr {
+  top: 6px;
+  right: 6px;
+  transform: scaleX(-1);
+}
+.corner.bl {
+  bottom: 6px;
+  left: 6px;
+  transform: scaleY(-1);
+}
+.corner.br {
+  bottom: 6px;
+  right: 6px;
+  transform: scale(-1, -1);
+}
+
+/* ---------- richer section textures ---------- */
+.section.maroon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--lotus-tile) 0 0 / 72px 72px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.section.maroon > * {
+  position: relative;
+}
+.section.paper {
+  background:
+    var(--lotus-tile) 0 0 / 90px 90px,
+    radial-gradient(circle at 20% 10%, rgba(201, 162, 75, 0.16), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(193, 18, 47, 0.08), transparent 45%),
+    var(--cream);
+}
+.section.saffron {
+  background:
+    var(--lotus-tile) 0 0 / 90px 90px,
+    radial-gradient(circle at 50% 0%, #fff0c4, transparent 55%),
+    linear-gradient(180deg, #fbd27a, #f1ab3d);
+  overflow: hidden;
+}
+.section.saffron::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 14px;
+  background: repeating-linear-gradient(90deg, var(--maroon) 0 14px, var(--gold) 14px 28px);
+  opacity: 0.85;
+}
+
+/* ---------- invitation card ---------- */
+.card-frame {
+  position: relative;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 18px 50px rgba(110, 15, 28, 0.15);
+}
+.card-frame .corner {
+  width: 46px;
+  height: 46px;
+  top: 10px;
+}
+.card-frame .corner.tl,
+.card-frame .corner.tr {
+  top: 10px;
+}
+.card-frame .corner.bl,
+.card-frame .corner.br {
+  top: auto;
+  bottom: 10px;
+}
+.om-seal {
+  display: block;
+  font-family: "Noto Serif Devanagari", serif;
+  font-size: 46px;
+  line-height: 1.2;
+  color: var(--kum);
+  text-shadow: 0 2px 10px rgba(201, 162, 75, 0.6);
+  animation: pulse 3.2s ease-in-out infinite;
+}
+
+/* ---------- tilt cards ---------- */
+.tilt {
+  position: relative;
+  transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out, box-shadow 0.25s;
+  will-change: transform;
+}
+.tilt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.4),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+.tilt.active::after {
+  opacity: 1;
+}
+.tilt.active {
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.28);
+}
+.avatar.tilt {
+  overflow: hidden;
+}
+
+/* ---------- divine blessings ---------- */
+.bless-sub {
+  max-width: 520px;
+  margin: 0 auto 6px;
+  color: var(--maroon-d);
+  font-weight: 600;
+}
+.gods-grid {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 28px auto 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 26px 22px;
+}
+.god-wrap {
+  display: flex;
+}
+.god-card {
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  color: var(--ink);
+  padding: 14px 14px 20px;
+  border-radius: 130px 130px 20px 20px;
+  border: 2px solid var(--gold);
+  outline: 1px solid rgba(110, 15, 28, 0.35);
+  outline-offset: 5px;
+  background: linear-gradient(180deg, #fffaf0, #fbe8bd);
+  box-shadow: 0 12px 28px rgba(110, 15, 28, 0.22);
+}
+.god-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.god-card .mantra {
+  margin-top: auto;
+  align-self: center;
+}
+.god-card .god-sub {
+  margin-bottom: 10px;
+}
+.niche {
+  width: 100%;
+  position: relative;
+  border-radius: 110px 110px 12px 12px;
+  padding: 18px 10px 6px;
+  background: radial-gradient(circle at 50% 38%, #9b1a2d 0%, #5a0b17 62%, #2a0509 100%);
+  box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+.niche::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 104px 104px 8px 8px;
+  border: 1px solid rgba(243, 220, 146, 0.6);
+  pointer-events: none;
+}
+.god-svg,
+.god-photo {
+  position: relative;
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+}
+.god-photo {
+  border-radius: 100px 100px 6px 6px;
+  object-fit: cover;
+  aspect-ratio: 5 / 6;
+}
+.aura {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 78%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0.8);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 224, 138, 0.7), transparent 68%);
+  opacity: 0.55;
+  transition: transform 0.6s, opacity 0.6s;
+}
+.god-card.blessed .aura {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 1;
+}
+.god-card.blessed .god-svg {
+  animation: bless 1.2s ease;
+}
+@keyframes bless {
+  30% {
+    transform: scale(1.1) rotate(-2deg);
+  }
+  60% {
+    transform: scale(1.06) rotate(2deg);
+  }
+}
+.god-card h3 {
+  margin: 14px 0 2px;
+  font-size: 22px;
+  color: var(--maroon);
+}
+.god-sub {
+  font-size: 15px;
+  opacity: 0.85;
+  line-height: 1.45;
+}
+.mantra {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--maroon-d);
+  background: linear-gradient(135deg, #fff1b0, #e3b95a);
+  border: 1px solid #c9a24b;
+}
+.god-card.blessed .mantra {
+  animation: glow 1.2s ease 2;
+}
+@keyframes glow {
+  50% {
+    box-shadow: 0 0 22px 6px rgba(255, 179, 0, 0.8);
+  }
+}
+.tap-hint {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  color: var(--maroon-d);
+  font-weight: 700;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+/* diya + flame flicker */
+.flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: flicker 1.6s ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  0% {
+    transform: scale(1, 1) skewX(0);
+  }
+  35% {
+    transform: scale(0.96, 1.06) skewX(2deg);
+  }
+  70% {
+    transform: scale(1.03, 0.97) skewX(-2deg);
+  }
+  100% {
+    transform: scale(0.98, 1.04) skewX(1deg);
+  }
+}
+.coins g {
+  animation: coin 2.6s ease-in infinite;
+  transform-box: fill-box;
+}
+@keyframes coin {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+.fan {
+  transform-origin: 100px 206px;
+  animation: fanOpen 1s ease both, fanSway 6s 1s ease-in-out infinite;
+}
+@keyframes fanOpen {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
+@keyframes fanSway {
+  50% {
+    transform: rotate(2.4deg);
+  }
+}
+
+/* ---------- sacred icons ---------- */
+.event-icon {
+  display: grid;
+  place-items: center;
+  height: 78px;
+}
+.event-icon svg {
+  height: 78px;
+  width: auto;
+}
+.event-icon .diya {
+  height: 70px;
+}
+.event-wrap {
+  display: flex;
+}
+.event-wrap > .event {
+  width: 100%;
+  position: relative;
+}
+.event .corner {
+  color: var(--gold);
+  width: 30px;
+  height: 30px;
+}
+.heart {
+  display: grid;
+  place-items: center;
+}
+.heart .kalasam {
+  height: 92px;
+  width: auto;
+  filter: drop-shadow(0 0 14px rgba(255, 211, 106, 0.55));
+  animation: floaty 4.5s ease-in-out infinite;
+}
+.footer {
+  padding-top: 96px;
+}
+.footer .toran {
+  height: 66px;
+}
+.footer-names-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.footer-diya {
+  width: 56px;
+  height: auto;
+}
+
+/* buttons: shine sweep */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn.gold::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  transform: skewX(-20deg);
+  animation: sweep 3.6s ease-in-out infinite;
+}
+@keyframes sweep {
+  60%,
+  100% {
+    left: 130%;
+  }
+}
+.btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 640px) {
+  .hero-bell {
+    width: 30px;
+  }
+  .gods-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 12px;
+  }
+  .god-card {
+    padding: 10px 8px 16px;
+    border-radius: 90px 90px 16px 16px;
+  }
+  .niche {
+    border-radius: 80px 80px 10px 10px;
+    padding: 12px 4px 4px;
+  }
+  .god-card h3 {
+    font-size: 17px;
+  }
+  .god-sub {
+    font-size: 13px;
+  }
+  .mantra {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  .lang-toggle .opt {
+    min-width: 48px;
+    font-size: 13px;
+  }
+}
+@media (max-width: 380px) {
+  .gods-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toran,
+  .hero-bell,
+  .flame,
+  .coins g,
+  .fan,
+  .stars i,
+  .om-seal,
+  .tap-hint,
+  .btn.gold::after,
+  .splash-btn,
+  .hero-names span:not(.amp) {
+    animation: none !important;
+  }
+  .swapping :is(h2, h3, p, li, label, .btn) {
+    animation: none;
+  }
+  .door {
+    transition-duration: 0.01s;
+  }
+}
