@@ -1,8 +1,8 @@
 export const T = {
   ta: {
     langBtn: "English",
-    ganesh: "|| ஸ்ரீ கணேசாய நமஃ ||",
-    god: "ஸ்ரீ முனீஸ்வரர் துணை",
+    ganesh: "|| ஸ்ரீ கணேசாய நமஹ ||",
+    god: "ஸ்ரீ முனீஸ்வரன் துணை",
     invite: "திருமண அழைப்பிதழ்",
     heroDate: "திங்கட்கிழமை · 16 நவம்பர் 2026",
     heroTamilDate: "ஐப்பசி 30",
@@ -46,6 +46,14 @@ export const T = {
     addCal: "நாட்காட்டியில் சேர்",
     openMaps: "வழி காட்டு (Google Maps)",
     hosts: "அன்புடன் அழைப்போர்",
+    welcome: "அன்புடன் வரவேற்கிறோம்",
+    welcomeMessage1:
+      "தங்கராஜ் மற்றும் விகிதா அவர்களின் திருமண விழாவைக் கொண்டாட, தங்களையும் தங்கள் குடும்பத்தினரையும் அன்புடன் வரவேற்கிறோம்.",
+
+    welcomeMessage2:
+      "தங்களின் வருகையும், அன்பும், ஆசீர்வாதங்களும் எங்களுக்கு கிடைக்கக்கூடிய மிகப் பெரிய பரிசாகும்.",
+
+    welcomeSignoff: "தங்களின் வருகையை அன்புடன் எதிர்நோக்குகிறோம்",
     call: "தொடர்புக்கு",
 
     rsvp: "உங்கள் வருகையை தெரிவியுங்கள்",
@@ -60,9 +68,11 @@ export const T = {
     share: "அழைப்பை பகிர்",
     rsvpMsg: (n, a, g, note) =>
       `வணக்கம்! திருமண அழைப்பிற்கு நன்றி.\nபெயர்: ${n}\nவருகை: ${a}\nநபர்கள்: ${g}${note ? `\nசெய்தி: ${note}` : ""}`,
-    shareMsg: "தங்கராஜ் & விகிதா திருமண அழைப்பிதழ் – 16.11.2026, அய்யம்பாளையம், திருவண்ணாமலை",
+    shareMsg:
+      "தங்கராஜ் & விகிதா திருமண அழைப்பிதழ் – 16.11.2026, அய்யம்பாளையம், திருவண்ணாமலை",
 
-    quote: "இரு உள்ளங்கள் இணையும் இனிய நாளில், உங்கள் ஆசிகளே எங்கள் பெரும் செல்வம்.",
+    quote:
+      "இரு உள்ளங்கள் இணையும் இனிய நாளில், உங்கள் ஆசிகளே எங்கள் பெரும் செல்வம்.",
     footer: "உங்கள் வருகையை எதிர்நோக்கி",
     made: "அன்புடன் உருவாக்கப்பட்டது",
 
@@ -70,17 +80,41 @@ export const T = {
     blessSub: "இறைவனின் திருவருளோடு தொடங்கும் புதிய வாழ்க்கை",
     tapHint: "ஆசி பெற தெய்வத்தைத் தொடுங்கள் 🌸",
     gods: [
-      { key: "ganesha", name: "ஸ்ரீ விநாயகர்", sub: "தடைகள் நீக்கும் முதல் தெய்வம்", mantra: "ஓம் கம் கணபதயே நமஃ" },
-      { key: "lakshmi", name: "ஸ்ரீ மகாலட்சுமி", sub: "செல்வமும் மங்கலமும் அருள்பவள்", mantra: "ஓம் ஸ்ரீ மஹாலக்ஷ்ம்யை நமஃ" },
-      { key: "shiva", name: "அண்ணாமலையார்", sub: "திருவண்ணாமலை ஜோதி வடிவம்", mantra: "ஓம் நமசிவாய" },
-      { key: "murugan", name: "முருகப் பெருமான்", sub: "தமிழ்க் கடவுள் · வேல் முருகா", mantra: "ஓம் சரவணபவ" },
+      {
+        key: "shiva",
+        name: "ஸ்ரீ அண்ணாமலையார்",
+        sub: "ஞான ஒளியும் அருளும் முக்தியும் அருள்பவர்",
+        mantra: "ஓம் நமசிவாய",
+        image: "/images/shiva.png",
+      },
+      {
+        key: "lakshmi",
+        name: "ஸ்ரீ மகாலட்சுமி",
+        sub: "செல்வமும் மங்கலமும் அருள்பவள்",
+        mantra: "ஓம் ஸ்ரீ மஹாலக்ஷ்ம்யை நமஃ",
+        image: "/images/lakshmi.png",
+      },
+      {
+        key: "ganesha",
+        name: "ஸ்ரீ விநாயகர்",
+        sub: "தடைகள் நீக்கி நல்வழி காட்டுபவர்",
+        mantra: "ஓம் கம் கணபதயே நமஃ",
+        image: "/images/ganesha.png",
+      },
+      {
+        key: "murugan",
+        name: "ஸ்ரீ முருகப்பெருமான்",
+        sub: "வீரமும் ஞானமும் வெற்றியும் அருள்பவர்",
+        mantra: "ஓம் சரவணபவ",
+        image: "/images/murugan.png",
+      },
     ],
   },
 
   en: {
     langBtn: "தமிழ்",
     ganesh: "|| Shri Ganeshaya Namah ||",
-    god: "Sri Muneeswarar Thunai",
+    god: "Sri Muneeswaran Thunai",
     invite: "Wedding Invitation",
     heroDate: "Monday · 16 November 2026",
     heroTamilDate: "Aippasi 30",
@@ -123,7 +157,15 @@ export const T = {
     venue: "Venue",
     addCal: "Add to calendar",
     openMaps: "Get directions (Google Maps)",
-    hosts: "With love, the families",
+    hosts: "WITH LOVE, THE FAMILIES",
+    welcome: "We Welcome You With Love",
+    welcomeMessage1:
+      "With folded hands and joyful hearts, we warmly welcome you and your family to celebrate the wedding of Thangaraj & Vikitha.",
+
+    welcomeMessage2:
+      "Your presence, love, and blessings are the most precious gifts we could receive.",
+
+    welcomeSignoff: "We Await Your Gracious Presence",
     call: "Contact",
 
     rsvp: "Kindly let us know",
@@ -138,9 +180,11 @@ export const T = {
     share: "Share invitation",
     rsvpMsg: (n, a, g, note) =>
       `Namaste! Thank you for the wedding invitation.\nName: ${n}\nAttending: ${a}\nGuests: ${g}${note ? `\nMessage: ${note}` : ""}`,
-    shareMsg: "Wedding invitation — Thangaraj & Vikitha, 16 Nov 2026, Ayyampalayam, Tiruvannamalai",
+    shareMsg:
+      "Wedding invitation — Thangaraj & Vikitha, 16 Nov 2026, Ayyampalayam, Tiruvannamalai",
 
-    quote: "On the day two hearts become one, your blessings are our greatest treasure.",
+    quote:
+      "On the day two hearts become one, your blessings are our greatest treasure.",
     footer: "Awaiting your gracious presence",
     made: "Made with love",
 
@@ -148,10 +192,34 @@ export const T = {
     blessSub: "A new life begins with the grace of the Gods",
     tapHint: "Touch a deity to receive blessings 🌸",
     gods: [
-      { key: "ganesha", name: "Lord Ganesha", sub: "Remover of obstacles, first to be invoked", mantra: "Om Gam Ganapataye Namaha" },
-      { key: "lakshmi", name: "Goddess Lakshmi", sub: "Giver of prosperity & auspiciousness", mantra: "Om Shri Mahalakshmyai Namaha" },
-      { key: "shiva", name: "Lord Annamalaiyar", sub: "The sacred flame of Tiruvannamalai", mantra: "Om Namah Shivaya" },
-      { key: "murugan", name: "Lord Murugan", sub: "The beloved God of the Tamils · Vel Muruga", mantra: "Om Saravana Bhava" },
+      {
+        key: "shiva",
+        name: "Lord Annamalaiyar",
+        sub: "The divine flame of wisdom, grace & liberation",
+        mantra: "Om Namah Shivaya",
+        image: "/images/shiva.png",
+      },
+      {
+        key: "lakshmi",
+        name: "Goddess Lakshmi",
+        sub: "Giver of prosperity & auspiciousness",
+        mantra: "Om Shri Mahalakshmyai Namaha",
+        image: "/images/lakshmi.png",
+      },
+      {
+        key: "ganesha",
+        name: "Lord Ganesha",
+        sub: "Remover of obstacles, first to be invoked",
+        mantra: "Om Gam Ganapataye Namaha",
+        image: "/images/ganesha.png",
+      },
+      {
+        key: "murugan",
+        name: "Lord Murugan",
+        sub: "Bestower of courage, wisdom & victory",
+        mantra: "Om Saravana Bhava",
+        image: "/images/murugan.png",
+      },
     ],
   },
 };

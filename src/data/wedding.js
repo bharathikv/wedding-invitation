@@ -6,10 +6,10 @@
 
 export const wedding = {
   credit: {
-    name: { ta: "பாரதி K", en: "Bharathi K" },
+    name: { ta: "பாரதி காமராஜ்", en: "Bharathi Kamaraj" },
     role: {
-      ta: "ஃபுல் ஸ்டாக் டெவலப்பர் · மணமகளின் சகோதரர்",
-      en: "Full Stack Developer · Bride's Brother",
+      ta: "· மணமகளின் சகோதரர்",
+      en: "· Bride's Brother",
     },
     label: { ta: "வடிவமைப்பு & உருவாக்கம்", en: "Designed & developed by" },
     link: "", // optional: your portfolio / LinkedIn URL
@@ -42,28 +42,28 @@ export const wedding = {
   },
 
   venue: {
-    name: { ta: "அய்யம்பாளையம்", en: "Ayyampalayam" },
+    name: {
+      ta: "அக்ஷயா மஹால்",
+      en: "Akshaya Mahal",
+    },
     lines: {
       ta: [
-        "செங்கம் ரோடு, அத்தியந்தல் அஞ்சல்",
-        "திருவண்ணாமலை வட்டம் & மாவட்டம்",
+        "அத்தியந்தல், திருவண்ணாமலை",
+        "தமிழ்நாடு - 606603",
+        "🥐அக்ஷயா பேக்கரிஅருகில்",
       ],
       en: [
-        "Sengam Road, Athiyanthal Post",
-        "Tiruvannamalai Taluk & District, Tamil Nadu",
+        "Athiyandal, Tiruvannamalai",
+        "Tamil Nadu - 606603",
+        "🥐Near Akshaya Bakery",
       ],
     },
-    mapQuery: "Athiyanthal Sengam Road Tiruvannamalai Tamil Nadu",
+    mapQuery: "https://maps.app.goo.gl/7JAA2iKzN8yND7Xz9",
   },
 
   // "அன்புடன் அழைப்போர்" — inviting family members
-  hosts: [
-    { ta: "D. செல்வராஜ் – ரங்கநாயகி", en: "D. Selvaraj – Ranganayaki" },
-    { ta: "D. ராஜலிங்கம்", en: "D. Rajalingam" },
-    { ta: "D. மாரிமுத்து – சாந்தா", en: "D. Marimuthu – Santha" },
-    { ta: "D. மகாலிங்கம் – ஜெயா", en: "D. Mahalingam – Jaya" },
-  ],
-  contacts: ["6383013648", "9384511068"],
+  // hosts: [{ ta: "D. செல்வராஜ் – ரங்கநாயகி", en: "D. Selvaraj – Ranganayaki" }],
+  contacts: ["9786006533", "9944242371"],
 
   // RSVP messages open WhatsApp chat with this number (10 digits, India)
   rsvpWhatsApp: "6383013648",

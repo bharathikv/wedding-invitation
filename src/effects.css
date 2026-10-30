@@ -88,8 +88,7 @@ button {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 50% 50%, #8f1526 0%, #3b070f 75%),
-    var(--maroon-d);
+    radial-gradient(circle at 50% 50%, #8f1526 0%, #3b070f 75%), var(--maroon-d);
   color: var(--gold);
   overflow: hidden;
   clip-path: circle(0 at var(--x) var(--y));
@@ -224,7 +223,11 @@ button {
   bottom: 0;
   width: 50.3%;
   background:
-    radial-gradient(circle at 50% 50%, rgba(255, 211, 106, 0.2), transparent 70%),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 211, 106, 0.2),
+      transparent 70%
+    ),
     linear-gradient(180deg, #7a0f1e, #3b070f 60%, #2a0509);
   transition: transform 1.7s cubic-bezier(0.7, 0, 0.2, 1);
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.55);
@@ -308,10 +311,34 @@ button {
 }
 .splash-glow {
   position: absolute;
-  inset: -20%;
+  inset: 5%;
+  z-index: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 211, 106, 0.55), transparent 65%);
-  animation: pulse 3s ease-in-out infinite;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 211, 106, 0.38) 0%,
+    rgba(255, 193, 75, 0.18) 40%,
+    transparent 70%
+  );
+
+  filter: blur(18px);
+  animation: glowPulse 4s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
 }
 @keyframes floaty {
   50% {
@@ -549,8 +576,16 @@ button {
 .section.paper {
   background:
     var(--lotus-tile) 0 0 / 90px 90px,
-    radial-gradient(circle at 20% 10%, rgba(201, 162, 75, 0.16), transparent 40%),
-    radial-gradient(circle at 80% 90%, rgba(193, 18, 47, 0.08), transparent 45%),
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(201, 162, 75, 0.16),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 90%,
+      rgba(193, 18, 47, 0.08),
+      transparent 45%
+    ),
     var(--cream);
 }
 .section.saffron {
@@ -567,7 +602,11 @@ button {
   right: 0;
   bottom: 0;
   height: 14px;
-  background: repeating-linear-gradient(90deg, var(--maroon) 0 14px, var(--gold) 14px 28px);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--maroon) 0 14px,
+    var(--gold) 14px 28px
+  );
   opacity: 0.85;
 }
 
@@ -604,8 +643,11 @@ button {
 /* ---------- tilt cards ---------- */
 .tilt {
   position: relative;
-  transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform 0.25s ease-out, box-shadow 0.25s;
+  transform: perspective(800px) rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg));
+  transition:
+    transform 0.25s ease-out,
+    box-shadow 0.25s;
   will-change: transform;
 }
 .tilt::after {
@@ -631,7 +673,9 @@ button {
 .avatar.tilt {
   overflow: hidden;
 }
-
+.hero-name-title {
+  padding: 5px;
+}
 /* ---------- divine blessings ---------- */
 .bless-sub {
   max-width: 520px;
@@ -682,7 +726,12 @@ button {
   position: relative;
   border-radius: 110px 110px 12px 12px;
   padding: 18px 10px 6px;
-  background: radial-gradient(circle at 50% 38%, #9b1a2d 0%, #5a0b17 62%, #2a0509 100%);
+  background: radial-gradient(
+    circle at 50% 38%,
+    #9b1a2d 0%,
+    #5a0b17 62%,
+    #2a0509 100%
+  );
   box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.55);
   overflow: hidden;
 }
@@ -716,9 +765,15 @@ button {
   aspect-ratio: 1;
   transform: translate(-50%, -50%) scale(0.8);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 224, 138, 0.7), transparent 68%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 224, 138, 0.7),
+    transparent 68%
+  );
   opacity: 0.55;
-  transition: transform 0.6s, opacity 0.6s;
+  transition:
+    transform 0.6s,
+    opacity 0.6s;
 }
 .god-card.blessed .aura {
   transform: translate(-50%, -50%) scale(1.5);
@@ -812,7 +867,9 @@ button {
 }
 .fan {
   transform-origin: 100px 206px;
-  animation: fanOpen 1s ease both, fanSway 6s 1s ease-in-out infinite;
+  animation:
+    fanOpen 1s ease both,
+    fanSway 6s 1s ease-in-out infinite;
 }
 @keyframes fanOpen {
   from {
@@ -890,7 +947,12 @@ button {
   bottom: 0;
   left: -60%;
   width: 40%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
   transform: skewX(-20deg);
   animation: sweep 3.6s ease-in-out infinite;
 }

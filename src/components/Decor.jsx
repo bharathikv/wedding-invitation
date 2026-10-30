@@ -14,7 +14,7 @@ export function Reveal({ children, delay = 0, className = "" }) {
           io.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -43,7 +43,7 @@ export function Petals({ count = 22 }) {
         drift: (Math.random() - 0.5) * 160,
         hue: Math.random() > 0.5 ? "marigold" : "rose",
       })),
-    [count]
+    [count],
   );
   return (
     <div className="petals" aria-hidden>
@@ -90,7 +90,14 @@ export function Mandala({ size = 600, className = "" }) {
           </g>
         ))}
         {Array.from({ length: 32 }).map((_, i) => (
-          <line key={i} x1="0" y1="-90" x2="0" y2="-96" transform={`rotate(${i * 11.25})`} />
+          <line
+            key={i}
+            x1="0"
+            y1="-90"
+            x2="0"
+            y2="-96"
+            transform={`rotate(${i * 11.25})`}
+          />
         ))}
       </g>
     </svg>
@@ -103,7 +110,12 @@ export function Divider() {
     <div className="divider" aria-hidden>
       <span className="line" />
       <svg viewBox="-30 -20 60 40" width="54" height="36">
-        <g fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+        <g
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        >
           <path d="M0 14 C -6 6, -6 -4, 0 -14 C 6 -4, 6 6, 0 14Z" />
           <path d="M0 14 C -14 12, -22 2, -24 -6 C -14 -6, -6 2, 0 14Z" />
           <path d="M0 14 C 14 12, 22 2, 24 -6 C 14 -6, 6 2, 0 14Z" />
